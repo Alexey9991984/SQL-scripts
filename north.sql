@@ -107,6 +107,8 @@ GROUP BY c.country, week
 ORDER BY week, revenue DESC;
 
 
+--- 
+
 SELECT 
     c.country,
     EXTRACT(YEAR FROM o.order_date) AS year,
