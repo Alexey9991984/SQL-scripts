@@ -53,7 +53,8 @@ JOIN orders o
 JOIN order_details od 
     ON o.order_id = od.order_id
 GROUP BY company_name
-ORDER BY revenue DESC;
+ORDER BY revenue DESC
+LIMIT 10;
 
 
 --- какие товары приносят больше всего прибыли
@@ -107,7 +108,7 @@ GROUP BY c.country, week
 ORDER BY week, revenue DESC;
 
 
---- 
+--- заказы год и неделя 
 
 SELECT 
     c.country,
@@ -121,3 +122,12 @@ GROUP BY c.country, year, week
 ORDER BY year, week;
 
 
+SELECT 
+    c.country,
+    DATE_TRUNC('month', o.order_date) AS month,
+    SUM(od.quantity * od.unit_price * (1 - od.discount)) AS revenue
+FROM order_details od
+JOIN orders o ON od.order_id = o.order_id
+JOIN customers c ON o.customer_id = c.customer_id
+GROUP BY c.country, month
+ORDER BY month;
