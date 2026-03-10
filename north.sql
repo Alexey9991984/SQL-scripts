@@ -13,6 +13,11 @@ GROUP BY p.product_name
 ORDER BY revenue DESC
 LIMIT 5;
 
+CREATE USER analyst WITH PASSWORD '123456';
+GRANT ALL PRIVILEGES ON DATABASE Northwind TO analyst;
+
+
+
 --- проверил совпадает ли мой дамп, кол-во заказов и деталей заказов с 
 --- той базой которая должна быть. (все в порядке база та что нужно)
 
@@ -121,6 +126,8 @@ JOIN customers c ON o.customer_id = c.customer_id
 GROUP BY c.country, year, week
 ORDER BY year, week;
 
+
+--- trend for month
 
 SELECT 
     c.country,
