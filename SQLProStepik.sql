@@ -2227,10 +2227,14 @@ FROM users;
 
 SELECT count(*) FROM stories_likes;
 
-# EXPLAIN показывает как исполняется запрос работает с такими запросами как
+--- EXPLAIN — это команда в SQL, которая показывает план выполнения запроса 
+--- (execution plan), не запуская его.
+
+# EXPLAIN показывает как исполняется запрос работает 
+--- с такими запросами как
 # (SELECT, DELETE, INSERT, REPLACE AND UPDATE) 
 
-EXPLAIN SELECT 
+SELECT 
 	s.id,
 	COUNT(*) AS cnt,
 	u.firstname,
@@ -2243,8 +2247,61 @@ GROUP BY s.id
 ORDER BY cnt DESC 
 LIMIT 20;
 
+ALTER TABLE stories_likes ADD INDEX (story_id); --- добавил индекс
+
+ALTER TABLE stories_likes ADD FOREIGN KEY (story_id) REFERENCES stories(id); 
 
 
 
 
+SET @user_number = 11;
 
+SELECT 
+	users.id,
+	users.birthday,
+	user_settings.is_premium_account
+FROM users
+JOIN user_settings ON users.id = user_settings.user_id 
+WHERE id = @user_number;
+
+
+--- Требование о переносе поля реализуется в несколько шагов:
+
+--- Создать дублирующее поле is_premium_account в таблице users
+--- Скопировать UPDATE запросом данные этого поля из таблицы 
+--- user_settings в таблицу users
+--- Удалить поле is_premium_account из таблицы user_settings
+ 
+--- создание колонки
+ALTER TABLE users 
+ADD COLUMN is_premium_account BIT;
+
+--- добавление значений (копирование с другой колонки)
+
+UPDATE users
+JOIN user_settings AS us ON us.user_id = users.id
+SET users.is_premium_account = us.is_premium_account;
+
+--- удаление колонки с таблицы users 
+ALTER TABLE users DROP COLUMN is_premium_account;
+
+
+
+
+SELECT 
+	users.id,
+	users.birthday,
+	user_settings.is_premium_account
+FROM users
+JOIN user_settings ON users.id = user_settings.user_id 
+WHERE id = 1;
+
+
+EXPLAIN SELECT *
+FROM channels AS c
+JOIN channel_messages AS cm ON c.id = cm.channel_id 
+JOIN channel_message_reactions AS cmr ON cm.id = cmr.message_id 
+JOIN reactions_list AS rl ON rl.id = cmr.reaction_id 
+JOIN users AS u ON u.id = cm.sender_id;
+
+ALTER TABLE channel_message_reactions  ADD FOREIGN KEY (message_id) REFERENCES channel_messages(id); 
