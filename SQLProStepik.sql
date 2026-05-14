@@ -2286,8 +2286,6 @@ SET users.is_premium_account = us.is_premium_account;
 ALTER TABLE users DROP COLUMN is_premium_account;
 
 
-
-
 SELECT 
 	users.id,
 	users.birthday,
@@ -2305,3 +2303,26 @@ JOIN reactions_list AS rl ON rl.id = cmr.reaction_id
 JOIN users AS u ON u.id = cm.sender_id;
 
 ALTER TABLE channel_message_reactions  ADD FOREIGN KEY (message_id) REFERENCES channel_messages(id); 
+
+
+--- Проверка лог файлов
+
+SHOW variables LIKE '%log%';
+
+--- 1 - отключаем логирование на время
+
+SET GLOBAL general_log = 'OFF';
+
+--- 2 - создаем файл для логирования
+
+--- если не прописывать путь будет стандарт
+
+SET GLOBAL general_log_file =  'mysql_general.log'; 
+
+--- 3 - снова включаем 
+
+SET GLOBAL general_log = 'ON';
+
+SELECT * FROM users;
+
+SHOW VARIABLES LIKE 'datadir';
