@@ -3,7 +3,7 @@ UPDATE channels
 	WHERE id = 35
   	AND owner_user_id = 15;
 
---- !!!
+--- !!!!
 UPDATE users 
 	SET password_hash = NULL 
 	WHERE id  = 5;
