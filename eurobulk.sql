@@ -516,8 +516,8 @@ INSERT INTO trip_events (
 )
 VALUES (
 	2,
-	'2025-03-23 14:10:00',
-	'2025-03-23 17:00:00',
+	'2026-03-23 14:10:00',
+	'2026-03-23 17:00:00',
 	'Tangermunde',
 	 345437,
 	'unload'
@@ -622,8 +622,8 @@ INSERT INTO trip_events (
 )
 VALUES (
 	2,
-	'2025-03-26 08:20:00',
-	'2025-03-26 10:10:00',
+	'2026-03-26 08:20:00',
+	'2026-03-26 10:10:00',
 	'Kohberg Bakery Group',
 	 346568,
 	'unload'
@@ -638,7 +638,7 @@ FROM trip_events
 WHERE location = 'Faxe Bryggeri';
 
 UPDATE trip_events
-SET departure_timestamp = '2025-03-25 10:20:00'
+SET departure_timestamp = '2026-03-25 10:20:00'
 WHERE location = 'Faxe Bryggeri';
 
 SELECT *
@@ -711,14 +711,202 @@ INSERT INTO truck_trailer_assignments (
     end_timestamp
 )
 VALUES (
-    1,
-    1,
-    '2026-04-12 06:10',
-    '2026-04-24 20:00'
+    2,
+    2,
+    '2026-04-03 13:00',
+    '2026-04-26 11:30'
 );
 
 SELECT * 
 FROM trips;
 
-SELECT * 
-FROM trips;
+INSERT INTO truck_trailer_assignments (
+    truck_id,
+    trailer_id,
+    start_timestamp,
+    end_timestamp
+)
+VALUES (
+    1,
+    3,
+    '2026-03-26 11:30',
+    '2026-04-03 12:00'
+);
+
+UPDATE truck_trailer_assignments
+SET  start_timestamp = '2026-03-22 05:00'
+WHERE assignment_id = 3;
+
+SELECT *
+FROM truck_trailer_assignments tta
+ORDER BY start_timestamp;
+
+SELECT *
+FROM trip_events te ;
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+)
+VALUES (
+	2,
+	'2026-03-26 18:00:00',
+	'2026-03-26 19:20:00',
+	'Hamburg Cargill',
+	 346778,
+	'load'
+);	
+
+SELECT *
+FROM trip_events te
+ORDER BY event_id;
+
+UPDATE trip_events
+SET arrival_timestamp   = '2026-03-26 18:00',
+    departure_timestamp = '2026-03-26 19:20'
+WHERE event_id = 25;
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type,
+    notes
+	)
+VALUES (
+	2,
+	'2026-03-27 14:50:00',
+	'2026-03-30 06:30:00',
+	'Rostock TS Clean',
+	 347217,
+	'wash',
+    'weekend'
+	 );	
+
+
+SELECT *
+FROM trip_events;
+
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+ )
+VALUES (
+	2,
+	'2026-03-30 07:20:00',
+	'2026-03-30 08:10:00',
+	'Rostock Power oil',
+	 347240,
+	'load'
+	 );	
+
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+ )
+VALUES (
+	2,
+	'2026-03-31 11:30:00',
+	'2026-03-31 13:30:00',
+	'Eernegem',
+	 348155,
+	'unload'
+	 );	
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+ )
+VALUES (
+	2,
+	'2026-03-31 16:10:00',
+	'2026-03-31 18:50:00',
+	'La Lys Sitra',
+	 348275,
+	'wash'
+	 );	
+
+
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+ )
+VALUES (
+	2,
+	'2026-03-31 19:10:00',
+	'2026-04-01 13:20:00',
+	'Lestrem Roquette',
+	 348286,
+	'load'
+	 );	
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+ )
+VALUES (
+	2,
+	'2026-04-03 08:40:00',
+	'2026-04-03 09:40:00',
+	'Kalundborg Novonordisk',
+	 349455,
+	'unload'
+	 );	
+
+
+
+INSERT INTO trip_events (
+	trip_id,
+	arrival_timestamp,
+    departure_timestamp,
+    LOCATION,
+	odometer,
+	action_type
+ )
+VALUES (
+	2,
+	'2026-04-03 13:40:00',
+	'2026-04-03 13:41:00',
+	'Padborg',
+	 349705,
+	'finish'
+	 );	
+
+SELECT *
+FROM trip_events te ;
